@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/first.png</file>
+        <file>resources/next.png</file>
+        <file>resources/prev.png</file>
+        <file>resources/last.png</file>
+        <file>resources/plus.png</file>
+        <file>resources/minus.png</file>
+        <file>resources/pen.png</file>
+        <file>resources/addgrp.png</file>
+        <file>resources/prmove.png</file>
+        <file>resources/exec.png</file>
+        <file>resources/addday.png</file>
+        <file>resources/weight.png</file>
+        <file>resources/delday.png</file>
+        <file>resources/editday.png</file>
+    </qresource>
+</RCC>

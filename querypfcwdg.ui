@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>QueryPFCWdg</class>
+ <widget class="QWidget" name="QueryPFCWdg">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>498</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>480</width>
+    <height>200</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>2</number>
+   </property>
+   <property name="leftMargin">
+    <number>2</number>
+   </property>
+   <property name="topMargin">
+    <number>2</number>
+   </property>
+   <property name="rightMargin">
+    <number>2</number>
+   </property>
+   <property name="bottomMargin">
+    <number>2</number>
+   </property>
+   <item>
+    <widget class="QWidget" name="widget" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>480</width>
+       <height>36</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>36</height>
+      </size>
+     </property>
+     <widget class="QToolButton" name="tbFirst">
+      <property name="geometry">
+       <rect>
+        <x>9</x>
+        <y>2</y>
+        <width>39</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Go to first row</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="foodcl.qrc">
+        <normaloff>:/resources/first.png</normaloff>:/resources/first.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="tbPrev">
+      <property name="geometry">
+       <rect>
+        <x>54</x>
+        <y>2</y>
+        <width>39</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Go to previous row</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="foodcl.qrc">
+        <normaloff>:/resources/prev.png</normaloff>:/resources/prev.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="tbNext">
+      <property name="geometry">
+       <rect>
+        <x>99</x>
+        <y>2</y>
+        <width>39</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Go to next row</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="foodcl.qrc">
+        <normaloff>:/resources/next.png</normaloff>:/resources/next.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="tbLast">
+      <property name="geometry">
+       <rect>
+        <x>144</x>
+        <y>2</y>
+        <width>39</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Go to last row</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="foodcl.qrc">
+        <normaloff>:/resources/last.png</normaloff>:/resources/last.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lbFrom">
+      <property name="geometry">
+       <rect>
+        <x>189</x>
+        <y>11</y>
+        <width>25</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>From</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QDateEdit" name="deDate1">
+      <property name="geometry">
+       <rect>
+        <x>217</x>
+        <y>8</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lbFrom_2">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>11</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>to</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QDateEdit" name="deDate2">
+      <property name="geometry">
+       <rect>
+        <x>321</x>
+        <y>8</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="tbExecQuery">
+      <property name="geometry">
+       <rect>
+        <x>412</x>
+        <y>2</y>
+        <width>39</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Execute query</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="foodcl.qrc">
+        <normaloff>:/resources/exec.png</normaloff>:/resources/exec.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QTableView" name="tableView"/>
+   </item>
+   <item>
+    <widget class="QLabel" name="lbSum">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>20</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Average calorie intake: 0 kcal.  Average fraction: protein 0;  fat 0;  carbohydrate 0</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="foodcl.qrc"/>
+ </resources>
+ <connections/>
+</ui>

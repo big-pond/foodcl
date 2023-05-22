@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="main.css">
+<title>Хранение данных учета</title>
+</head>
+<body>
+
+<!-------МЕНЮ СПРАВКИ----СТАРТ-->
+<ul class="menu">
+<li class="gmenu"><a class="amenu" href="index.html">Введение</a></li>
+<li class="gmenu"><a class="amenu" href="start.html">Начало учета</a></li>
+<li class="gmenu"><a class="amenu" href="interface.html">Интерфейс приложения</a>
+    <ul>
+        <li><a class="amenu" href="newfile.html">Новый файл</a></li>
+        <li><a class="amenu" href="menu.html">Меню продуктов</a></li>
+        <li><a class="amenu" href="person.html">Персональные данные</a></li>
+        <li><a class="amenu" href="foodcount.html">Количество съеденного</a></li>
+        <li><a class="amenu" href="proddates.html">Даты употребления продукта</a></li>   
+        <li><a class="amenu" href="pfcfrac.html">Соотношение БЖУ</a></li>
+        <li><a class="amenu" href="bmiwin.html">Расчет показателей</a></li>
+        <li><a class="amenu" href="options.html">Настройки</a></li>
+    </ul>
+</li>
+<li><a class="amenu" href="struct.html">Хранение данных</a></li>
+</ul>
+<!------МЕНЮ СПРАВКИ----СТАРТ-->    
+    
+<div id="content"> <!-- Основной блок-->
+<h1>Хранение данных учета</h1>
+    <p>
+        Данные учета хранятся в файле. Если ведется учет для нескольких человек, то для каждого из них нужно создавать отдельный файл. При этом переключаться между файлами очень легко. До пяти файлов, открывавшихся ранее, запоминаются в меню "Файл". На рисунке 1 под цифрой 1 можно видеть имя файла открытого в приложении в данный момент, а под цифрой 2 предыдущий файл,  открывавшийся в приложении. Выбор пункта меню, обозначенного цифрой 2, приведет к открытию файла, путь к которому записан в этом пункте. 
+    </p>
+    <p>
+        Данные следует вводить ежедневно. Если вы прекращали вести учет по какой-либо причине, целесообразно <a href="">создать новый файл</a> выбрав пункт меню [Файл]->[Новый].
+    </p>
+    <figure>
+        <img src="images/struct_1_ru.png" alt="">
+        <figcaption>Рисунок 1 - Открывавшиеся файлы в меню "Файл"</figcaption>
+    </figure>
+    <h2>Описание структуры базы данных <br>(для пользователей знакомых с SQL)</h2>
+    <p>
+        Файл с данными учета представляет собой базу данных SQLite. База данных состоит из пяти таблиц. В таблице <b>person</b> хранится всего одна запись, в которой содержатся: имя пользователя, дата рождения, рост, вес и активность. Меню продуктов и блюд хранится в таблице <b>products</b>. В этой таблице программно реализована связь <i>один ко многим</i> по полям <b>id</b> и <b>parent_id</b>, а поле <b>isgroup</b> содержит признак раздела меню. Если <b>isgroup = 1</b>, то запись таблицы содержит информацию о разделе меню, а если <b>isgroup = 0</b> - о продукте или блюде.  
+    </p>
+    <figure>
+        <img src="images/struct_2_ru.png" alt="">
+        <figcaption>Рисунок 2 - Схема базы данных</figcaption>
+    </figure>
+    <p>
+        В таблице <b>days</b> в поле <b>mdate</b> хранятся даты учета. Отношением <i>один к одному</i> с ней связана таблица <b>weight</b>, в которой  в поле <b>weight</b> хранятся значения вашего веса. Записи о приемах пищи хранятся в таблице <b>meal</b>, которая имеет связи с таблицами <b>products</b> и <b>days</b>.
+    </p>
+    <p>
+        Подробное описание полей базы данных представлено в таблице.
+    </p>
+    <table>
+    <tr><th>Наименование поля</th><th>Тип</th><th>Пояснение</th></tr>
+    <tr><td class="title" colspan="3">Таблица <b>person</b></td></tr>
+    <tr><td>name</td><td>TEXT</td><td>Ваше имя</td></tr>
+    <tr><td>dob</td><td>TEXT</td><td>Дата рождения</td></tr>
+    <tr><td>height</td><td>NUMERIC</td><td>Рост, см</td></tr>
+    <tr><td>sex</td><td>INTEGER</td><td>Пол (0-женский, 1-мужской)</td></tr>
+    <tr><td>activity</td><td>INTEGER</td><td>Активность (0-4)</td></tr>
+    <tr><td>prot</td><td>NUMERIC</td><td>Процентное содержание белков в пище, необходимое для достижения цели (например для похудения)</td></tr>
+    <tr><td>fat</td><td>NUMERIC</td><td>Процентное содержание жиров в пище необходимое для достижения цели</td></tr>
+    <tr><td>carb</td><td>NUMERIC</td><td>Процентное содержание углеводов в пище необходимое для достижения цели</td></tr>
+    <tr><td>variate</td><td>NUMERIC</td><td>Отклонение (±) содержания БЖУ (см. строки выше) от принятых значений (в процентах)</td></tr>
+    <tr><td class="title" colspan="3">Таблица <b>products</b></td></tr>
+    <tr><td>id</td><td>INTEGER</td><td>Первичный ключ, автоинкремент</td></tr>
+    <tr><td>parent_id</td><td>INTEGER</td><td>Внешний ключ (ссылка на раздел меню)</td></tr>
+    <tr><td>isgroup</td><td>INTEGER</td><td>Признак раздела (подраздела) (0-продукт или блюдо, 1-раздел или подраздел)</td></tr>
+    <tr><td>name</td><td>TEXT</td><td>Название раздела (подраздела) или продукта (блюда)</td></tr>
+    <tr><td>calory</td><td>NUMERIC</td><td>Калорийность 100 г продукта (блюда), ккал</td></tr>
+    <tr><td>protein</td><td>NUMERIC</td><td>Содержание белков в 100 г продукта или блюда, г</td></tr>
+    <tr><td>fat</td><td>NUMERIC</td><td>Содержание жиров в 100 г продукта или блюда, г</td></tr>
+    <tr><td>carbohydrate</td><td>NUMERIC</td><td>Содержание углеводов в 100 г продукта или блюда, г</td></tr>
+    <tr><td>price1kg</td><td>NUMERIC</td><td>Цена 1 кг продукта (блюда)</td></tr>
+    <tr><td class="title" colspan="3">Таблица <b>days</b></td></tr>
+    <tr><td>id</td><td>INTEGER</td><td>Первичный ключ, автоинкремент</td></tr>
+    <tr><td>mdate</td><td>TEXT</td><td>Дата учета (формат 'ГГГГ-ММ-ДД')</td></tr>
+    <tr><td>note</td><td>TEXT</td><td>Пояснение (не используется)</td></tr>
+    <tr><td class="title" colspan="3">Таблица <b>weight</b></td></tr>
+    <tr><td>id</td><td>INTEGER</td><td>Первичный ключ, автоинкремент</td></tr>
+    <tr><td>weight</td><td>NUMERIC</td><td>Ваш вес, кг</td></tr>
+    <tr><td>param1</td><td>NUMERIC</td><td>Резервное поле (не используется)</td></tr>
+    <tr><td>param2</td><td>NUMERIC</td><td>Резервное поле (не используется)</td></tr>
+    <tr><td>days_id</td><td>INTEGER</td><td>Внешний ключ (ссылка на запись в таблице <b>days</b>)</td></tr>
+    <tr><td class="title" colspan="3">Таблица <b>meal</b></td></tr>
+    <tr><td>id</td><td>INTEGER</td><td>Первичный ключ, автоинкремент</td></tr>
+    <tr><td>mtime</td><td>TEXT</td><td>Время употребления продукта (формат 'ЧЧ:ММ:СС')</td></tr>
+    <tr><td>weight</td><td>NUMERIC</td><td>Вес употребленного продукта (блюда), г</td></tr>
+    <tr><td>product_id</td><td>INTEGER</td><td>Внешний ключ (ссылка на запись в таблице <b>products</b>)</td></tr>
+    <tr><td>days_id</td><td>INTEGER</td><td>Внешний ключ (ссылка на запись в таблице <b>days</b>)</td></tr>
+    </table>
+    <p>
+        Структура базы данных, описанная с использованием  операторов SQL, выглядит следующим образом:
+    </p>
+    <code>
+        CREATE TABLE person (name TEXT,dob TEXT,height NUMERIC,sex INTEGER,activity INTEGER,prot NUMERIC,fat NUMERIC, carb NUMERIC, variate NUMERIC);<br>
+        CREATE TABLE products (id INTEGER PRIMARY KEY AUTOINCREMENT,parent_id INTEGER,isgroup INTEGER,name TEXT,calory NUMERIC, protein NUMERIC,fat NUMERIC,carbohydrate NUMERIC,price1kg NUMERIC);<br>
+        CREATE TABLE days (id INTEGER PRIMARY KEY AUTOINCREMENT,mdate TEXT,note TEXT);<br>
+        CREATE TABLE weight (id INTEGER PRIMARY KEY AUTOINCREMENT,weight NUMERIC,param1 NUMERIC,param2 NUMERIC,days_id INTEGER NOT NULL,FOREIGN KEY (days_id) REFERENCES days(id));<br>
+        CREATE TABLE meal (id INTEGER PRIMARY KEY AUTOINCREMENT,mtime TEXT,weight NUMERIC,product_id INTEGER NOT NULL,days_id INTEGER NOT NULL,FOREIGN KEY (days_id) REFERENCES days(id), FOREIGN KEY (product_id) REFERENCES products(id));
+    </code>
+</div>
+</body>
+
+</html>
