@@ -28,6 +28,7 @@ protected:
 private:
     QChart* clrChart;
     QLineSeries *cseries;
+    QLineSeries *cmseries;
     QLineSeries *m1series;
     QLineSeries *m2series;
     QDateTimeAxis *caxisX;

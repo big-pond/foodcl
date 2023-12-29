@@ -36,6 +36,12 @@ ChartWdg::ChartWdg(QWidget *parent) :  QWidget(parent)
     pen.setWidth(2);
     cseries->setPen(pen);
 
+    cmseries = new QLineSeries;
+    cmseries->setName(tr("Average calories for this date")); //Среднее число калорий на эту дату
+    pen.setColor(Qt::darkGreen);
+    pen.setWidth(2);
+    cmseries->setPen(pen);
+
     m1series = new QLineSeries;
     m1series->setName(tr("Basal metabolic rate")); //Основной обмен
     pen.setColor(Qt::darkRed);
@@ -47,16 +53,19 @@ ChartWdg::ChartWdg(QWidget *parent) :  QWidget(parent)
     clrChart->addSeries(m1series);
     clrChart->addSeries(m2series);
     clrChart->addSeries(cseries);
+    clrChart->addSeries(cmseries);
     caxisX = new QDateTimeAxis;
     caxisX->setFormat("dd-MM-yyyy");
     caxisX->setLabelsAngle(-90);
     clrChart->setAxisX(caxisX, m1series);
     clrChart->setAxisX(caxisX, m2series);
     clrChart->setAxisX(caxisX, cseries);
+    clrChart->setAxisX(caxisX, cmseries);
     caxisY = new QValueAxis;
     clrChart->setAxisY(caxisY, cseries);
     clrChart->setAxisY(caxisY, m1series);
     clrChart->setAxisY(caxisY, m2series);
+    clrChart->setAxisY(caxisY, cmseries);
 
     weightChart = new QChart();
     weightChart->setTitle(tr("Weight (kg)"));  //Вес
@@ -134,6 +143,7 @@ void ChartWdg::buildCalChart()
 {
     QDateTime datemax, datemin;
     cseries->clear();
+    cmseries->clear();
     m1series->clear();
     m2series->clear();
 
@@ -170,6 +180,7 @@ void ChartWdg::buildCalChart()
 
         qreal weight = 0;
         qreal kcalmax = 0;
+        qreal sumkcal = 0;
         int tcount = 0;
         while(query.next())
         {
@@ -178,6 +189,8 @@ void ChartWdg::buildCalChart()
             qreal kcal = query.value("kcal").toDouble();
             if(kcalmax<kcal) kcalmax = kcal;
             cseries->append(xValue.toMSecsSinceEpoch(),kcal);
+            sumkcal += kcal;
+            cmseries->append(xValue.toMSecsSinceEpoch(),sumkcal/(tcount+1));
 
             qreal w = query.value("pweight").toDouble();
             if(w>0) weight = w;
